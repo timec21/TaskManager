@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useParams } from 'react-router-dom'
+import { TaskContext } from '../TaskContext';
 
 export default function TaskDetail() {
     const {taskId} = useParams();
-    const task = tasks[taskId];
+    const {taskList} = useContext(TaskContext);
+    const task = taskList[taskId]; 
   return (
     <div>
       <h1>Görev Detayı:</h1>

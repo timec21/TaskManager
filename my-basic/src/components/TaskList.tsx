@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { TaskContext } from "../TaskContext";
 
-function TaskList({tasks}){
-    const [taskList, setTaskList] = useState(tasks);
+function TaskList(){
+    const {taskList, addTask} = useContext(TaskContext);
     const [newTask, setNewTask] = useState('');
     const [error, setError] = useState('');
  
@@ -10,10 +11,12 @@ function TaskList({tasks}){
         if(newTask.trim() === ''){
             setError(`Görev adı boş olamaz!`);
             return;
+        }else{
+            addTask(newTask);
+            setNewTask('');
+            setError('');
         }
-        setTaskList([...taskList, newTask]);
-        setNewTask('');
-        setError('');
+
     };
     return(
         <div>
