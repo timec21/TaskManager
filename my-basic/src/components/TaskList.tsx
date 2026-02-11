@@ -1,6 +1,8 @@
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { TaskContext } from "../TaskContext";
+import alertify from 'alertifyjs';
+import { Alert, Button, Input, ListGroup, ListGroupItem } from "reactstrap";
 
 function TaskList(){
     const {taskList, addTask} = useContext(TaskContext);
@@ -15,30 +17,32 @@ function TaskList(){
             addTask(newTask);
             setNewTask('');
             setError('');
+            alertify.success('Görev başarıyla tamamlandı.');
         }
 
     };
     return(
-        <div>
+        <div className="container mt-4">
             <h1>Görev Listesi</h1>
 
             {taskList.length === 0 ? (
-                <p>Henüz bir görev eklenmedi.</p>
+                <Alert>Henüz bir görev eklenmedi.</Alert>
             ) : (
-                <ul>
+                <ListGroup>
                 {taskList.map((task, index)=>(
-                    <li key={index}>{task} - <Link to={`/task/${index}`}>Detaya Git</Link></li>
+                    <ListGroupItem key={index}>{task} - <Link to={`/task/${index}`}>Detaya Git</Link></ListGroupItem>
                 ))}
-            </ul>
+            </ListGroup>
             )}
             
             
-            <input
+            <Input
             type="text"
             value={newTask}
-            onChange={(e) => setNewTask(e.target.value)}></input>
-            <button onClick={handleAddTask}>Görev Ekle</button>
-            {error && <p style={{color: 'red'}}>{error}</p>}
+            onChange={(e) => setNewTask(e.target.value)}
+            className="mt-2"></Input>
+            <Button onClick={handleAddTask} className="mt-2" color="primary">Görev Ekle</Button>
+            {error && <Alert color="danger" className="mt-2">{error}</Alert>}
 
 
         </div>
