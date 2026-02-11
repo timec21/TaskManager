@@ -11,7 +11,7 @@ const TaskProvider = ({ children }) => {
     };
 
     return(
-        <TaskContext.Provider value={{taskList,addTask}}>
+        <TaskContext.Provider value={{taskList, setTaskList, addTask}}>
             {children}
         </TaskContext.Provider>
     )
